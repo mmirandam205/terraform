@@ -1,16 +1,16 @@
-provider "aws" {
-  region = "us-east-2"  # Cambia si usás otra región
+variable "instance_name" {
+  description = "Nombre de la instancia EC2"
+  type        = string
 }
 
 resource "aws_instance" "mario_ec2" {
-  ami           = "ami-0c803b171269e2d72" # Amazon Linux 2023 en us-east-2
+  ami           = "ami-0c803b171269e2d72"
   instance_type = "t3.micro"
-  key_name      = "mariolab"  # Asegurate de tener este key par en AWS
-
-  subnet_id = "subnet-07264b405ef600089"  # Usa tu Subnet existente
-  vpc_security_group_ids = ["sg-00a0602acd5314d99"]  # Usa tu SG existente
+  key_name      = "mariolab"
+  subnet_id     = "subnet-07264b405ef600089"
+  vpc_security_group_ids = ["sg-00a0602acd5314d99"]
 
   tags = {
-    Name = "MarioEC2Terraform"
+    Name = var.instance_name
   }
 }
