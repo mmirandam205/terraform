@@ -3,12 +3,13 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'us-east-2'
+        INSTANCE_NAME = 'NombreFijoDesdeJenkinsfile'  // Aquí escribís directamente el nombre
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/mmirandam205/terraform.git'
+                git 'https://github.com/mmirandam205/terraform.git'
             }
         }
 
@@ -20,13 +21,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan'
+                sh "terraform plan -var=\"instance_name=${env.INSTANCE_NAME}\""
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve'
+                sh "terraform apply -var=\"instance_name=${env.INSTANCE_NAME}\" -auto-approve"
             }
         }
     }
