@@ -18,13 +18,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan -var "INSTANCE_NAME=${params.INSTANCE_NAME}"'
+                sh "terraform plan -var \"INSTANCE_NAME=${params.INSTANCE_NAME}\""
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -var "INSTANCE_NAME=${params.INSTANCE_NAME}" -auto-approve'
+                sh "terraform apply -var \"INSTANCE_NAME=${params.INSTANCE_NAME}\" -auto-approve"
             }
         }
     }
